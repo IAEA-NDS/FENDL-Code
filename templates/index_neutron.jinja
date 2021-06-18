@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="description" content="Nuclear Reaction Data Centres" />
+<meta name="owner"       content="OTSUKA Naohiko" />
+<meta name="keywords"    content="nuclear data, reaction data, EXFOR, CINDA" />
+
+<link rel="stylesheet" type="text/css" href="/mytool/css/zv1tool.css" />
+<link rel="stylesheet" type="text/css" href="/css/nds_std.css" />
+<script type="text/javascript" src="/mytool/javascript/zv1tool.js"></script>
+<script type="text/javascript">nds_ndsLoadMyTool('/mytool/');</script>
+
+<link rel="stylesheet" type="text/css" href="../css/nrdc.css" />
+<script type="text/javascript" src="../../javascript/fendl_fnc.js"></script>
+<script type="text/javascript" src="../../javascript/fendl_dat.js"></script>
+<title>
+FENDL-3.2: General purpose neutron sublibrary
+</title>
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+  nds_outTopBar(1);
+  nds_outReactionBar();
+</script>
+
+
+<script type="text/javascript">
+  nds_outBeginBars();
+  nds_outBeginLeftBar();
+</script>
+
+<script type="text/javascript">
+  output_list(documents, "Documents");
+  output_list(link, "Links");
+  output_list(contact, "Contacts");
+</script>
+
+
+<script type="text/javascript">
+  nds_outEndLeftBar();
+  nds_outBeginCentralBar();
+</script>
+<div id="content">
+  <h2 align="center">
+  <font size="5" face="Verdana, Arial, Helvetica, sans-serif">
+  FENDL-3.2: General purpose neutron sublibrary
+  </font>
+  </h2>
+  <p>
+      This table contains ENDF and processed files of the FENDL neutron sublibrary.
+      The columns with additional information on the file contents are extracted from the headers of the ENDF files.
+      Please note that these headers do not necessarily accurately reflect the content of the files due to modifications.
+      For more details consult the description in the file headers and the main website of the FENDL library.
+  </p>
+<table summary="zipped" class="tab-color" align="center">
+<thead>
+<tr bgcolor="#ccffff">
+<th>#</th>
+<th>Mat</th>
+<th>Material</th>
+<th>Lab.</th>
+<th>Date</th>
+<th>Authors</th>
+<th>Source</th>
+<th>Emax (eV)</th>
+<th colspan="11">File</th>
+</tr>
+</thead>
+<tbody>
+{% for item in endf_metadata_list %}
+    <tr bgcolor='#ccffcc'>
+        <td>{{item.idx}}</td>
+        <td>{{item.MAT}}</td>
+        <td>{{item.ZSYMAM}}</td>
+        <td>{{item.ALAB}}</td>
+        <td>{{item.EDATE}}</td>
+        <td>{{item.AUTH}}</td>
+        <td>{{item.HSUB_LIB}}</td>
+        <td>{{item.EMAX_STR}}</td>
+        <td>[<a href="endf/{{item.filename}}">endf</a>]</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        {% if 'derived_files' in item %}
+            <td>
+                {% if 'ace' in item.derived_files %}
+                    [<a href="{{item.derived_files.ace}}">ace</a>]
+                {% endif %}
+                {% if 'xsd' in item.derived_files %}
+                    [<a href="{{item.derived_files.xsd}}">xsd</a>]</td>
+                {% endif %}
+            <td>
+                {% if 'gendf' in item.derived_files %}
+                    [<a href="{{item.derived_files.gendf}}">gendf</a>]
+                {% endif %}
+            </td>
+            <td>
+                {% if 'matxs' in item.derived_files %}
+                    [<a href="{{item.derived_files.matxs}}">matxs</a>]
+                {% endif %}
+            </td>
+            <td>
+                [fig:
+                {% if 'ace_plot' in item.derived_files %}
+                    <a href="{{item.derived_files.ace_plot}}">ace</a>,
+                {% endif %}
+                {% if 'htr_plot' in item.derived_files %}
+                    <a href="{{item.derived_files.htr_plot}}">htr</a>]
+                {% endif %}
+            </td>
+            <td>
+                {% if 'QA' in item.derived_files %}
+                    [QA:
+                    {% if 'qa_pendf_plot' in item.derived_files %}
+                        <a href="{{item.derived_files.qa_pendf_plot_ace}}">ace</a>,
+                    {% endif %}
+                    {% if 'qa_pendf_plot' in item.derived_files %}
+                        <a href="{{item.derived_files.qa_pendf_plot_mxs}}">mxs</a>]
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                [njoy:
+                {% if 'njoy_inp' in item.derived_files %}
+                    <a href="{{item.derived_files.njoy_inp}}">inp</a>,
+                {% endif %}
+                {% if 'njoy_out' in item.derived_files %}
+                    <a href="{{item.derived_files.njoy_out}}">out</a>]
+                {% endif %}
+            </td>
+        {% endif %}
+    </tr>
+{% endfor %}
+</tbody></table></div>
+
+<script type="text/javascript">
+  nds_outEndCentralBar();
+  nds_outBeginRightBar();
+</script>
+
+<!--
+<script type="text/javascript">
+  output_list(report,  "Documents");
+  output_list(code,    "Codes");
+  output_list(meeting, "NRDC Meetings");
+  output_list(events,  "Other Events");
+  output_list(cp_memo, "Memos");
+</script>
+-->
+
+<script type="text/javascript">
+  nds_outEndRightBar();
+  nds_outEndBars();
+</script>
+
+<script type="text/javascript">
+  nds_outCopyright();
+</script>
+
+</body>
+</html>

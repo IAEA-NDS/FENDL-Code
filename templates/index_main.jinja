@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="description" content="FENDL-3.2" />
+<meta name="owner"       content="Georg Schnabel" />
+<meta name="keywords"    content="nuclear data, reaction data, fusion, FENDL" />
+
+<link rel="stylesheet" type="text/css" href="/mytool/css/zv1tool.css" />
+<link rel="stylesheet" type="text/css" href="/css/nds_std.css" />
+<script type="text/javascript" src="/mytool/javascript/zv1tool.js"></script>
+<script type="text/javascript">nds_ndsLoadMyTool('/mytool/');</script>
+
+<link rel="stylesheet" type="text/css" href="css/fa endl.css" />
+<script type="text/javascript" src="javascript/fendl_fnc.js"></script>
+<script type="text/javascript" src="javascript/fendl_dat.js"></script>
+
+<title>
+FENDL-3.2
+</title>
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+  nds_outTopBar(1);
+  nds_outReactionBar();
+  nds_outBeginBars();
+  nds_outBeginLeftBar()
+</script>
+
+<script type="text/javascript">
+  output_list(documents, "Documents");
+  output_list(link, "Links");
+  output_list(contact, "Contacts");
+</script>
+
+
+<script type="text/javascript">
+  nds_outEndLeftBar();
+  nds_outBeginCentralBar();
+</script>
+
+<div id="content">
+
+    <div style="width:160px; height:150px; float:left">
+        <img src="images/iter.jpg" class="imgL1" alt="nrdc logo" align="left" width="140"/> 
+    </div>
+    <div style="margin-left:160px; height:150px">
+        <h2 align="center">
+        <font size="5" face="Verdana, Arial, Helvetica, sans-serif">
+        <a name="top" id="top"></a>
+        FENDL-3.2: <br> Fusion Evaluated Nuclear Data Library Ver. 3.2
+        </font>
+        <br>
+        <font size=3> Released on 9 March 2021</font>
+        </h2>
+        <center>
+        <p> Nuclear Data Libraries for Advanced Systems: Fusion Devices </p>
+        </center>
+    </div>
+
+<p>
+The Fusion Evaluated Nuclear Data Library contains reaction data 
+with a focus on the data requirements of future fusion research facilities,
+such as ITER, DEMO and IFMIF.
+More documentation about the historic development of the FENDL library
+is provided on the websites of <a href="/fendl31d/">previous releases</a>.
+</p>
+
+<h3>
+Contents
+</h3>
+<p>
+The FENDL-3.2 package contains evaluated nuclear data in ENDF-6 format as 
+General Purpose files.
+Data are given for neutron-, proton- and deuteron-induced reactions 
+up to a typical energy of 150 MeV.
+Processing of the basic files has been done so that a series of files are available 
+for applications.
+</p>
+
+<ul>
+<li>FENDL/MC: Pointwise continuous-energy cross section data in <strong>ACE</strong> 
+    format for MCNP calculations; also includes probability tables (PT) in the 
+    unresolved resonance range.</li>
+<li>FENDL/MG: Contains multigroup cross section data in the 211n/42g Vitamin J+ 
+    energy structures (the 211n Vitamin J+ energy structure matches with the 175n 
+    Vitamin J energy structure below 19.64 MeV) for multigroup transport codes in two formats: 
+<ul>
+<li>FENDL/MG (MATXS), which includes files in <strong>MATXS</strong> format from 
+    the NJOY module MATXSR.</li>
+<li>FENDL/MG (GENDF), which contains data in <strong>GENDF</strong> format from 
+    the NJOY modules GROUPR and GAMINR. </li>
+</ul>
+<li>Data are available for 192 materials relevant for fusion at 293.6K. Additionally, 
+    the SIGACE package can be downloaded for Doppler broadening of ACE-formatted 
+    file - useful for generating ACE-formatted files at temperatures higher than 293.6K.</li>
+</ul>
+
+<p>
+<b>Note:</b> Activation files will be updated soon.
+</p>
+
+<h3>
+Download
+</h3>
+
+<p>
+The zipped files contain the entire library of a certain type.
+Files that were added or changed since FENDL-3.1d are listed <a href="data/changed_files.txt">here</a>.
+
+</p>
+<table summary="zipped" class="tab-color">
+<thead>
+<tr bgcolor="#ccffff"><th>Library<th>Sublibrary</th>
+<th>ENDF</th>
+<th>PENDF</th>
+<th>ACE</th>
+<th>MATXS</th>
+<th>GENDF</th>
+<th>GND</th>
+</tr>
+</thead>
+<tbody>
+    <tr bgcolor="#ccffcc">
+        <td rowspan="5">FENDL-3.2</td>
+        <td><a href="data/neutron/index.html">Neutron</a></td>
+        <td>[<a href="data/neutron/fendl-3.2-neutron-endf.zip">zip</a>]</td>
+        <td></td>
+        <td>[<a href="data/neutron/fendl32-neutron-ace.zip">zip</a>]</td>
+        <td>[<a href="data/neutron/fendl32-neutron-matxs.zip">zip</a>]</td>
+        <td>[<a href="data/neutron/fendl32-neutron-gendf.zip">zip</a>]</td>
+        <td></td>
+    </tr>
+    <tr bgcolor="#ccffcc">
+        <td><a href="data/atom/index.html">Atom</a></td>
+        <td>[<a href="data/atom/fendl32-atom-endf.zip">zip</a>]</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>[<a href="data/atom/fendl32-atom-gendf.zip">zip</a>]</td>
+        <td></td>
+    </tr>
+    <tr bgcolor="#ccffcc">                                
+        <td><a href="data/proton/index.html">Proton</a></td>
+        <td>[<a href="data/proton/fendl32-proton-endf.zip">zip</a>]</td>
+        <td></td>
+        <td>[<a href="data/proton/fendl32-proton-ace.zip">zip</a>]</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr bgcolor="#ccffcc">                                
+        <td><a href="data/deuteron/index.html">Deuteron</a></td>
+        <td>[<a href="data/deuteron/fendl32-deuteron-endf.zip">zip</a>]</td>
+        <td></td>
+        <td>[<a href="data/deuteron/fendl32-deuteron-ace.zip">zip</a>]</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</tbody>
+</table>
+<p>
+</p>
+
+
+</div>
+
+<script type="text/javascript">
+  nds_outEndCentralBar();
+  nds_outBeginRightBar();
+</script>
+
+<!--
+<script type="text/javascript">
+  output_list(link, "Links");
+</script>
+-->
+
+<script type="text/javascript">
+  nds_outEndRightBar();
+  nds_outEndBars();
+</script>
+
+<script type="text/javascript">
+  nds_outCopyright();
+</script>
+
+</body>
+</html>
