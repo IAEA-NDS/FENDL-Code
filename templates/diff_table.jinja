@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="description" content="Nuclear Reaction Data Centres" />
+<meta name="owner"       content="OTSUKA Naohiko" />
+<meta name="keywords"    content="nuclear data, reaction data, EXFOR, CINDA" />
+
+<link rel="stylesheet" type="text/css" href="/mytool/css/zv1tool.css" />
+<link rel="stylesheet" type="text/css" href="/css/nds_std.css" />
+<script type="text/javascript" src="/mytool/javascript/zv1tool.js"></script>
+<script type="text/javascript">nds_ndsLoadMyTool('/mytool/');</script>
+
+<link rel="stylesheet" type="text/css" href="../css/nrdc.css" />
+<script type="text/javascript" src="../../../../../javascript/fendl_fnc.js"></script>
+<script type="text/javascript" src="../../../../../javascript/fendl_dat.js"></script>
+<title>
+FENDL-3.2: Differences to FENDL-3.1d
+</title>
+
+</head>
+
+<body>
+
+<script type="text/javascript">
+  nds_outTopBar(1);
+  nds_outReactionBar();
+</script>
+
+
+<script type="text/javascript">
+  nds_outBeginBars();
+  nds_outBeginLeftBar();
+</script>
+
+<script type="text/javascript">
+  output_list(documents, "Documents");
+  output_list(link, "Links");
+  output_list(contact, "Contacts");
+</script>
+
+
+<script type="text/javascript">
+  nds_outEndLeftBar();
+  nds_outBeginCentralBar();
+</script>
+<div id="content">
+  <h2 align="center">
+  <font size="5" face="Verdana, Arial, Helvetica, sans-serif">
+  FENDL-3.2: Differences to FENDL 3.1d
+  </font>
+  </h2>
+  <p>
+      This table lists the ENDF files of the FENDL library with an indication whether they have been added, deleted or modified since FENDL 3.1d.
+      Clicking on the filename of a modified ENDF file shows the differences between the old and the new version of the file side by side.
+      The old version is displayed on the left side and the new version on the right side.
+      Lines with differences begin with an exclamation mark.
+  </p>
+<table summary="zipped" class="tab-color" align="center">
+<thead>
+<tr bgcolor="#ccffff">
+<th>Status</th>
+<th>Filename</th>
+</tr>
+</thead>
+<tbody>
+{% for key,value in change_df.iterrows() %}
+    <tr bgcolor='#ccffcc'>
+        <td>{{value['status']}}</td>
+        {% if value['status'] == 'modified' %}
+        <td><a href="{{value['link']}}">{{value['filename']}}</a></td>
+        {% else %}
+        <td>{{value['filename']}}</td>
+        {% endif %}
+    </tr>
+{% endfor %}
+</tbody></table></div>
+
+<script type="text/javascript">
+  nds_outEndCentralBar();
+  nds_outBeginRightBar();
+</script>
+
+<script type="text/javascript">
+  nds_outEndRightBar();
+  nds_outEndBars();
+</script>
+
+<script type="text/javascript">
+  nds_outCopyright();
+</script>
+
+</body>
+</html>
