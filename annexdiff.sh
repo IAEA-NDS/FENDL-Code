@@ -2,7 +2,7 @@
 
 diffmode="$1"
 if [ "$diffmode" != "onlynames" ] && [ "$diffmode" != "full" ] \
-    && [ "$diffmode" != "header" ] && [ "$diffmode" != "test" ]; then
+    && [ "$diffmode" != "header" ] && [ "$diffmode" != "difffile" ]; then
     echo "ERROR: first argument must be either 'onlynames' or 'full'"
     exit 1
 fi
@@ -84,16 +84,23 @@ elif [ "$diffmode" = "header" ]; then
     fi
     echo
 
-elif [ "$diffmode" = "test" ]; then
+elif [ "$diffmode" = "difffile" ]; then
 
     if [ ! -d "diffdir" ]; then
         echo 'ERROR: diffdir does not exist'
         exit
     fi
-    difffile="diffdir/$relfilepath.diff"
-    locdiffdir="diffdir/$(dirname $relfilepath)"
-    mkdir -p "$locdiffdir"
-    delta --light --side-by-side --width=200 n_0125_1-H-1.endf n_0128_1-H-2.endf | ansi2html --white | sed 's/<head>/<head><meta charset="UTF-8" \/>/' > "$difffile"
+    if [ "$reffile1" = "/dev/null" ]; then
+        echo "only in #2"
+    elif [ "$reffile2" = "/dev/null" ]; then
+        echo "only in #1"
+    else
+        echo "working on $relfilepath"
+        difffile="diffdir/$relfilepath.diff.html"
+        locdiffdir="diffdir/$(dirname $relfilepath)"
+        mkdir -p "$locdiffdir"
+        dtwdiff "$cmpfile1" "$cmpfile2" | ansi2html --white | sed 's/<head>/<head><meta charset="UTF-8" \/>/' > "$difffile"
+    fi
 fi
     
 if [ "$reffile1" != "/dev/null" ]; then
