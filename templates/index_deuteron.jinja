@@ -60,6 +60,9 @@ FENDL-3.2: General purpose deuteron sublibrary
       The columns with additional information about the file contents are extracted from the headers of the ENDF files.
       Please note that these headers do not necessarily accurately reflect the content of the files due to modifications.
       For more details consult the description in the file headers and the main website of the FENDL library.
+      {% if changefile_url %}
+          A list of modified and added ENDF files since FENDL 3.1d can be found <a href="{{changefile_url}}">here</a>.
+      {% endif %}
   </p>
 <table summary="zipped" class="tab-color" align="center">
 <thead>

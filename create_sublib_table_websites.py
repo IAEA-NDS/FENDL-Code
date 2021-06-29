@@ -38,6 +38,7 @@ env = Environment(loader=FileSystemLoader(environ['FENDL_TEMPLATE_DIR']))
 sublib_dic = {
     'neutron': {
         'endf_dir': join(data_dir, 'neutron/endf'),
+        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/neutron',
         'html_dir': join(data_dir, 'neutron'),
         'template': env.get_template('index_neutron.jinja'),
         'derived_files': {
@@ -53,6 +54,7 @@ sublib_dic = {
     },
     'proton': {
         'endf_dir': join(data_dir, 'proton/endf'),
+        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/proton',
         'html_dir': join(data_dir, 'proton'),
         'template': env.get_template('index_proton.jinja'),
         'derived_files': {
@@ -65,6 +67,7 @@ sublib_dic = {
     },
     'deuteron': {
         'endf_dir': join(data_dir, 'deuteron/endf'),
+        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/deuteron',
         'html_dir': join(data_dir, 'deuteron'),
         'template': env.get_template('index_deuteron.jinja'),
         'derived_files': {
@@ -74,6 +77,7 @@ sublib_dic = {
     },
     'atom': {
         'endf_dir': join(data_dir, 'atom/endf'),
+        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/atom',
         'html_dir': join(data_dir, 'atom'),
         'template': env.get_template('index_atom.jinja'),
         'derived_files': {
@@ -91,6 +95,11 @@ def create_sublib_html(sublib_spec):
     template = sublib_spec['template']
     html_dir = sublib_spec['html_dir']
     html_outfile = html_dir + '/index.html'
+
+    changefile = join(sublib_spec['diff_dir'], 'diff.html')
+    changepath = join(data_dir, changefile) 
+    changefile_url = join('..', changefile) if isfile(changepath) else None
+
     # get all endf files
     endf_file_paths = []
     endf_metadata_list = []
@@ -132,7 +141,7 @@ def create_sublib_html(sublib_spec):
         metadata_el['idx'] = idx
         metadata_el['EMAX_STR'] = '{:.2e}'.format(metadata_el['EMAX'])
 
-    html_output = template.render(endf_metadata_list=endf_metadata_list)
+    html_output = template.render(changefile_url=changefile_url, endf_metadata_list=endf_metadata_list)
     with open(html_outfile, 'w+') as f:
         f.write(html_output)
 
