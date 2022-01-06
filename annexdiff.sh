@@ -3,7 +3,7 @@
 diffmode="$1"
 if [ "$diffmode" != "onlynames" ] && [ "$diffmode" != "full" ] \
     && [ "$diffmode" != "header" ] && [ "$diffmode" != "difffile" ]; then
-    echo "ERROR: first argument must be either 'onlynames' or 'full'"
+    echo "ERROR: first argument must be either onlynames, full, header or difffile"
     exit 1
 fi
 
