@@ -21,6 +21,7 @@ fi
 filepath="$GIT_WORK_TREE/$relfilepath"
 dirpath="$(dirname $filepath)"
 
+
 if [ "$reffile1" != "/dev/null" ]; then
     rawpath1=$(cat $reffile1)
     truefile1="$dirpath/$rawpath1"
@@ -30,6 +31,24 @@ if [ "$reffile2" != "/dev/null" ]; then
     rawpath2=$(cat $reffile2)
     truefile2="$dirpath/$rawpath2"
 fi
+
+
+if [ "$diffmode" = "onlynames" ]; then
+    # for some reason: git diff --name-only ...
+    # is MUCH faster than this approach
+
+    if [ "$reffile1" = "/dev/null" ]; then
+        echo "only in #2: $relfilepath"
+    elif [ "$reffile2" = "/dev/null" ]; then
+        echo "only in #1: $relfilepath"
+    else
+        if [ "$truefile1" != "$truefile2" ]; then
+            echo "different in #1 and #2: $relfilepath"
+        fi
+    fi
+    exit
+fi
+
 
 if [ "$reffile1" != "/dev/null" ]; then
     cmpfile1="$(mktemp)"
@@ -51,20 +70,8 @@ if [ "$reffile2" != "/dev/null" ]; then
     dos2unix --quiet "$cmpfile2"
 fi
 
-if [ "$diffmode" = "onlynames" ]; then
 
-    if [ "$reffile1" = "/dev/null" ]; then
-        echo "only in #2: $relfilepath"
-    elif [ "$reffile2" = "/dev/null" ]; then
-        echo "only in #1: $relfilepath"
-    else
-        diff -q "$cmpfile1" "$cmpfile2" > /dev/null
-        if [ "$?" -ne 0 ]; then
-            echo "different in #1 and #2: $relfilepath"
-        fi
-    fi
-
-elif [ "$diffmode" = "full" ]; then
+if [ "$diffmode" = "full" ]; then
 
     vimdiff "$cmpfile1" "$cmpfile2"
 
