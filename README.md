@@ -89,7 +89,7 @@ containing the ENDF files.
 For instance, we can inspect the general-purpose neutron sublibrary by
 changing into its directory and listing the contained files
 ```
-cd FENDL-Processed/fendl-endf/general-purpose/neutron`.
+cd FENDL-Processed/fendl-endf/general-purpose/neutron
 ls -la
 ```
 There are only symbolic links, which appear as being broken because
@@ -141,7 +141,7 @@ structure followed traditionally on the IAEA-NDS website. The bash script
 `update_website_endf.sh` copies the data files (ENDF and derived files)
 present in the repository to another directory using a changed directory
 layout mirroring that of the FENDL library on the IAEA-NDS website.
-An environment variables `FENDL_REPO_DIR` must be set to point to the
+An environment variable `FENDL_REPO_DIR` must be set to point to the
 root directory of the FENDL-Processed repository. Another environment
 variable `FENDL_DATA_DIR` must be set to point to an empty directory
 where the data files are copied to. In practice, this script has been
