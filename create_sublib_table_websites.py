@@ -2,14 +2,17 @@
 #
 # Author:       Georg Schnabel
 # Email:        g.schnabel@iaea.org
-# Date:         2021/03/24
+# Date:         2022/01/11
 # Institution:  IAEA
 #
 # This script scans the ENDF files of the FENDL library
 # (which are in <website>/data/<sublib>/endf) and creates
 # an html index file with a table showing all ENDF files,
-# their metadata, and links to derived files. This script
-# makes use of jinja templates for the html files.
+# their metadata, and links to derived files for each
+# sublibrary. If a directory with html files showing a table of 
+# differences to a previous library version is provided, links
+# to these files will be inserted on the html sites of the sublibraries.
+# This script makes use of jinja templates for the html files.
 #
 # Usage:
 #     python create_sublib_table_websites.py
@@ -18,6 +21,8 @@
 #
 #       FENDL_DATA_DIR - data directory of the FENDL website
 #       FENDL_TEMPLATE_DIR - folder with html templates
+#       FENDL_DIFF_DIR - path to directory with difference
+#                        html tables relative to FENDL_DATA_DIR
 #
 ############################################################
 
@@ -33,12 +38,15 @@ import glob
 data_dir = environ['FENDL_DATA_DIR']
 # path to folder with jinja html templates
 env = Environment(loader=FileSystemLoader(environ['FENDL_TEMPLATE_DIR']))
+# path to directory with sublib difference tables
+# relative to FENDL_DATA_DIR
+reldiff_dir = environ['FENDL_DIFF_DIR']
 
 # input and output files
 sublib_dic = {
     'neutron': {
         'endf_dir': join(data_dir, 'neutron/endf'),
-        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/neutron',
+        'diff_dir': join(reldiff_dir, 'general-purpose/neutron'),
         'html_dir': join(data_dir, 'neutron'),
         'template': env.get_template('index_neutron.jinja'),
         'derived_files': {
@@ -54,7 +62,7 @@ sublib_dic = {
     },
     'proton': {
         'endf_dir': join(data_dir, 'proton/endf'),
-        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/proton',
+        'diff_dir': join(reldiff_dir, 'general-purpose/proton'),
         'html_dir': join(data_dir, 'proton'),
         'template': env.get_template('index_proton.jinja'),
         'derived_files': {
@@ -67,7 +75,7 @@ sublib_dic = {
     },
     'deuteron': {
         'endf_dir': join(data_dir, 'deuteron/endf'),
-        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/deuteron',
+        'diff_dir': join(reldiff_dir, 'general-purpose/deuteron'),
         'html_dir': join(data_dir, 'deuteron'),
         'template': env.get_template('index_deuteron.jinja'),
         'derived_files': {
@@ -77,7 +85,7 @@ sublib_dic = {
     },
     'atom': {
         'endf_dir': join(data_dir, 'atom/endf'),
-        'diff_dir': 'diffdir/diff_fendl31d_fendl32/general-purpose/atom',
+        'diff_dir': join(reldiff_dir, 'general-purpose/atom'),
         'html_dir': join(data_dir, 'atom'),
         'template': env.get_template('index_atom.jinja'),
         'derived_files': {
