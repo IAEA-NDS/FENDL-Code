@@ -98,6 +98,6 @@ for cidx in $(seq "${#scandirs[@]}"); do
 
     for curfile in $(ls); do
         cururl="$urlbase/$curdir2/$curfile"
-        git annex addurl --fast --file="$curfile" "$cururl"
+        git annex addurl --file="$curfile" "$cururl"
     done
 done
