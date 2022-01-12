@@ -74,7 +74,11 @@ elif [ "$mode" == "associate" ]; then
 
     filehash="sha256-$(readlink -f $filepath | sed -e 's/^.*--\([0-9a-f]*\).*$/\1/')"
     url="${hashdir}${filehash}"
-    git annex addurl --file="$filepath" "$url"
+    curdir=`pwd`
+    filename="$(basename $filepath)"
+    cd $(dirname $filepath)
+    git annex addurl --file="$filename" "$url"
+    cd $curdir
 
 else
     echo "ERROR: Unsupported mode $mode".
