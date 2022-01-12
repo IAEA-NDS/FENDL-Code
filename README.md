@@ -161,6 +161,47 @@ The bash script `add_fendl_weburls.sh` can be run
 in the root directory of the FENDL-Processed repository to register
 the web urls as source locations of the files.
 
+
+### Copying files from the repository to a hashstore
+
+The workflow discussed in
+[the section](#copying-files-from-the-repository-to-the-website-data-directory)
+on copying to the website data directory exhibits the disadvantage
+that potentially a lot of storage is wasted. If only a single file
+were changed in a new commit, all other files would still be copied
+over to the website data directory associated with this commit.
+Consequently, this solution is not employed for every commit but only
+those that represent milestones, such as the release of a new major
+library version that is also presented as a website.
+
+To avoid the duplication of data, another option is to scan the
+git-annex repository for all distinct files that existed
+in the history of the repository and store them in a
+directory where they are named according to the sha256 hash
+of their content. We call this new directory a hashstore.
+If the hashstore is made available on a
+webserver, all symbolic links in the git-annex repository can be
+associated with the files in the hashstore on the webserver.
+The script `hash_store_ops.sh` helps to store files in the
+hashstore and to associate symbolic links in a git-annex repository
+with the hashstore on a webserver.
+
+To store all distinct files of a git-annex repository that are
+represented by symbolic links, we can execute at the root directory
+of the repo
+```
+find .git/annex/objects -type f -exec \
+  <path-to-fendl-code>/hash_store_ops.sh store <path-to-hashstore> '{}' \;
+```
+
+If the hashstore is exposed on a webserver, symbolic links in a
+git-annex repository can be associated with the urls of the files
+in the hashstore. Being at the root of the repository, execute
+```
+find . -not path '*/.git/*' -type l -exec \
+  <path-to-fendl-code>/hash_store_ops.sh associate <hashstore-url> '{}' \;
+```
+
 ### Comparison of ENDF and derived files
 
 It is pertinent to list files that are different between
