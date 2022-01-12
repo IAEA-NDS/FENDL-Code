@@ -198,7 +198,7 @@ If the hashstore is exposed on a webserver, symbolic links in a
 git-annex repository can be associated with the urls of the files
 in the hashstore. Being at the root of the repository, execute
 ```
-find . -not path '*/.git/*' -type l -exec \
+find . -not -path '*/.git/*' -type l -exec \
   <path-to-fendl-code>/hash_store_ops.sh associate <hashstore-url> '{}' \;
 ```
 
