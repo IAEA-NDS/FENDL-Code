@@ -61,7 +61,12 @@ def copy_endf_files(inpdir, outdir, pattern='.*',
             continue
         # copy the endf file to the appropriate location
         # in the destination repository
-        fname_out = rename_endf_files([fpath], name_template=name_template, name_only=True)
+        try:
+            fname_out = rename_endf_files([fpath], name_template=name_template, name_only=True)
+        except:
+            print('could not rename ' + fpath)
+            continue
+
         fpath_out = os.path.join(outdir, fname_out)
         print('copying ' + fpath + ' to ' + fpath_out)
         if not dry_run: 
