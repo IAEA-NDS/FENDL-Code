@@ -72,7 +72,7 @@ if [ "$mode" == "store" ]; then
 
 elif [ "$mode" == "associate" ]; then
 
-    filehash="sha256-$(readlink -f $filepath | sed -e 's/^.*--\([0-9a-f]*\).*$/\1/')"
+    filehash="sha256-$(ls -la $filepath | sed -e 's/^.*--\([0-9a-f]*\).*$/\1/')"
     url="${hashdir}${filehash}"
     curdir=`pwd`
     filename="$(basename $filepath)"
