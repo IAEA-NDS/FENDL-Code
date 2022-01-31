@@ -287,11 +287,13 @@ variable `FENDL_CODE_DIR`.
 Being in the root directory of the FENDL-ENDF repo, execute
 ```
 sublib=neutron
-cd general-purpose/neutron
-git diff --name-status <EARLIER-COMMIT> <LATER-COMMIT> -- . > changes.txt
+earliercommit=<EARLIER-COMMIT>
+latercommit=<LATER-COMMIT>
+cd general-purpose/$sublib
+git diff --name-status $earliercommit $latercommit -- . > changes.txt
 mv changes.txt ../../diffdir/general-purpose/$sublib/
 cd ../..
-export FENDL_TEMPLATE_DIR="$FENDL_CODE_DIR/templates'
+export FENDL_TEMPLATE_DIR="$FENDL_CODE_DIR/templates"
 python $FENDL_CODE_DIR/create_sublib_difftable.py diffdir/general-purpose/$sublib
 ```
 Please note that the created html files are based on the
