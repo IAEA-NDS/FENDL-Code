@@ -23,6 +23,8 @@
 #     Following environment variables must be set:
 #
 #       FENDL_TEMPLATE_DIR - folder with html templates
+#       FENDL_VERSION - version of FENDL library
+#       FENDL_OLD_VERSION - previous version of FENDL library
 #
 ############################################################
 
@@ -34,6 +36,9 @@ import os
 # path to data directory of FENDL website
 if len(sys.argv) != 2:
     raise ValueError('Please provide path to diffdir')
+
+fendl_version = os.environ['FENDL_VERSION']
+fendl_old_version = os.environ['FENDL_OLD_VERSION']
 
 diffdir = sys.argv[1]
 # path to folder with jinja html templates
@@ -49,6 +54,7 @@ diff_table['status'] = diff_table['status'].replace({'A': 'added', 'M': 'modifie
 diff_table['link'] = [os.path.basename(fname) + '.diff.html' for fname in diff_table['filename']]
 print(diff_table)
 
-html_output = tmpl.render(change_df=diff_table)
+html_output = tmpl.render(change_df=diff_table,
+        fendl_version=fendl_version, fendl_old_version=fendl_old_version)
 with open(html_outfile, 'w+') as f:
     f.write(html_output)

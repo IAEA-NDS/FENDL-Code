@@ -23,6 +23,8 @@
 #       FENDL_TEMPLATE_DIR - folder with html templates
 #       FENDL_DIFF_DIR - path to directory with difference
 #                        html tables relative to FENDL_DATA_DIR
+#       FENDL_VERSION  - new version of the FENDL library
+#       FENDL_OLD_VERSION - old version of library
 #
 ############################################################
 
@@ -41,6 +43,9 @@ env = Environment(loader=FileSystemLoader(environ['FENDL_TEMPLATE_DIR']))
 # path to directory with sublib difference tables
 # relative to FENDL_DATA_DIR
 reldiff_dir = environ['FENDL_DIFF_DIR']
+
+fendl_version = environ['FENDL_VERSION']
+fendl_old_version = environ['FENDL_OLD_VERSION']
 
 # input and output files
 sublib_dic = {
@@ -149,7 +154,8 @@ def create_sublib_html(sublib_spec):
         metadata_el['idx'] = idx
         metadata_el['EMAX_STR'] = '{:.2e}'.format(metadata_el['EMAX'])
 
-    html_output = template.render(changefile_url=changefile_url, endf_metadata_list=endf_metadata_list)
+    html_output = template.render(changefile_url=changefile_url, endf_metadata_list=endf_metadata_list,
+            fendl_version=fendl_version, fendl_old_version=fendl_old_version)
     with open(html_outfile, 'w+') as f:
         f.write(html_output)
 

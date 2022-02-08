@@ -18,6 +18,7 @@
 #     These environment variables must be set:
 #       FENDL_DATA_DIR - path to data directory of FENDL website
 #       FENDL_REPO_DIR - path to FENDL repository
+#       FENDL_VERSION  - version of the FENDL library
 #
 ############################################################
 
@@ -123,14 +124,14 @@ if [ "$make_zips" -eq "1" ]; then
 
     # make all the endf zips
     for sublib in neutron proton deuteron atom; do
-        zip -r "fendl32-$sublib-endf.zip" "$sublib/endf" \
-            && mv "fendl32-$sublib-endf.zip" "$sublib"
+        zip -r "fendl-$FENDL_VERSION-$sublib-endf.zip" "$sublib/endf" \
+            && mv "fendl-$FENDL_VERSION-$sublib-endf.zip" "$sublib"
     done
 
     # make all the ace files
     for sublib in neutron proton deuteron; do
-        zip -r "fendl32-$sublib-ace.zip" "$sublib/ace" \
-            && mv "fendl32-$sublib-ace.zip" "$sublib"
+        zip -r "fendl-$FENDL_VERSION-$sublib-ace.zip" "$sublib/ace" \
+            && mv "fendl-$FENDL_VERSION-$sublib-ace.zip" "$sublib"
     done
 
     # assemble neutron gendf files (including photo-atomic gam files)
@@ -141,8 +142,8 @@ if [ "$make_zips" -eq "1" ]; then
         <(find atom/group -type f -name "*.gam") \
         | sort | xargs -Ifiles cp files "$workdir/neutron/group"
     cd "$workdir"
-    zip -r fendl32-neutron-gendf.zip neutron/group \
-        && mv fendl32-neutron-gendf.zip "$website_data_dir/neutron"
+    zip -r fendl-$FENDL_VERSION-neutron-gendf.zip neutron/group \
+        && mv fendl-$FENDL_VERSION-neutron-gendf.zip "$website_data_dir/neutron"
     cd "$website_data_dir"
     rm -rf "$workdir"
 
@@ -152,11 +153,11 @@ if [ "$make_zips" -eq "1" ]; then
     cat <( find neutron/group -type f -name "*.m" ) \
         | sort | xargs -Ifiles cp files "$workdir/neutron/group"
     cd "$workdir"
-    zip -r fendl32-neutron-matxs.zip neutron/group \
-        && mv fendl32-neutron-matxs.zip "$website_data_dir/neutron"
+    zip -r fendl-$FENDL_VERSION-neutron-matxs.zip neutron/group \
+        && mv fendl-$FENDL_VERSION-neutron-matxs.zip "$website_data_dir/neutron"
     cd "$website_data_dir"
     rm -rf "$workdir"
 
     cd $website_data_dir
-    zip -r fendl32-atom-gendf.zip atom/group && mv fendl32-atom-gendf.zip atom
+    zip -r fendl-$FENDL_VERSION-atom-gendf.zip atom/group && mv fendl-$FENDL_VERSION-atom-gendf.zip atom
 fi
