@@ -253,7 +253,7 @@ The following paragraphs explain how these html files have been generated
 using the scripts of this repository.
 For all the following, please define an environment variable `FENDL_VERSION`
 with the version number and `FENDL_OLD_VERSION` with the previous version.
-This environment variables are used to display the proper version numbers
+These environment variables are used to display the proper version numbers
 on the website.
 
 #### Creating html files showing differences in ENDF files
@@ -306,7 +306,6 @@ python $FENDL_CODE_DIR/create_sublib_difftable.py diffdir/general-purpose/$subli
 Please note that the created html files are based on the
 templates in the `templates` directory, which make use of the environment
 variables `FENDL_VERSION` and `FENDL_OLD_VERSION` to display the version numbers.
-It is important 
 
 The content of the `diffdir` directory is now complete.
 You can move this directory to a subfolder of the directory
