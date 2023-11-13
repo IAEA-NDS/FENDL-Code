@@ -80,6 +80,14 @@ elif [ "$mode" == "associate" ]; then
     git annex addurl --file="$filename" "$url"
     cd $curdir
 
+
+elif [ "$mode" == "print_association" ]; then
+
+    filehash="sha256-$(ls -la $filepath | sed -e 's/^.*--\([0-9a-f]*\).*$/\1/')"
+    url="${hashdir}${filehash}"
+    echo $url $filepath
+
+
 else
     echo "ERROR: Unsupported mode $mode".
     echo "       Use either 'store' or 'associate'"
