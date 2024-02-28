@@ -71,8 +71,8 @@ sublib_dic = {
         'html_dir': join(data_dir, 'proton'),
         'template': env.get_template('index_proton.jinja'),
         'derived_files': {
-            'ace': 'ace/[iaeasym].ace',
-            'xdr': 'ace/[iaeasym].xdr',
+            'ace': 'ace/[iaeasym]',
+            'xsd': 'ace/[iaeasym].xsd',
             'ace_plot': 'plot/[iaeasym]_ace.ps',
             'njoy_inp': 'njoy/[iaeasym].nji',
             'njoy_out': 'njoy/[iaeasym].out'
@@ -84,8 +84,8 @@ sublib_dic = {
         'html_dir': join(data_dir, 'deuteron'),
         'template': env.get_template('index_deuteron.jinja'),
         'derived_files': {
-            'ace': 'ace/[iaeasym].ace',
-            'xdr': 'ace/[iaeasym].xdr'
+            'ace': 'ace/[iaeasym]',
+            'xsd': 'ace/[iaeasym].xsd'
         }
     },
     'atom': {
