@@ -18,8 +18,13 @@
 #     repository with a weburl that points to a directory
 #     with files as created in (1).
 #
+# (3) It can import a file from a hashstore into a
+#     git-annex repository by replacing a broken
+#     symlink by the respective file from the hashstore.
+#
 # Usage:
 #     ./hash_store_ops.sh store <hashstore-dir> <filepath>
+#     ./hash_store_ops.sh import <hashstore-dir> <filepath>
 #     ./hash_store_ops.sh associate <weburl> <filepath>
 #
 #     <hashstore-dir>: directory to be used as hashstore
@@ -36,7 +41,7 @@ mode=$1
 hashdir="$2"
 filepath="$3"
 
-if [ "$mode" == "store" ]; then 
+if [ "$mode" == "store" ]; then
 
     filename=$(basename $filepath)
     filehash="sha256-$(sha256sum $filepath | cut -d' ' -f1)"
@@ -63,7 +68,7 @@ if [ "$mode" == "store" ]; then
     chmod 444 $outfilepath
 
     if [ "$retcode" -eq 0 ]; then
-        echo "stored '$filepath' as $filehash"  
+        echo "stored '$filepath' as $filehash"
     else
         echo "error: could not store $filepath"
     fi
@@ -80,6 +85,11 @@ elif [ "$mode" == "associate" ]; then
     git annex addurl --file="$filename" "$url"
     cd $curdir
 
+elif [ "$mode" == "import" ]; then
+    filehash="sha256-$(ls -la $filepath | sed -e 's/^.*--\([0-9a-f]*\).*$/\1/')"
+    hashfilepath="${hashdir}${filehash}"
+    cp --remove-destination "$hashfilepath" "$filepath"
+    echo "replacing file/symlink '$filepath' by '$hashfilepath'"
 
 elif [ "$mode" == "print_association" ]; then
 
