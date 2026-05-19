@@ -79,6 +79,20 @@ def rename_endf_files(filenames,
         sym_name_iaea = sym_name_iaea_nomass + \
                         str(mass).rjust(3, '0')
 
+        # create symbol name following the OpenMC HDF5 naming convention
+        # (element symbol + mass number, with metastable suffix _m1, _m2, ...)
+        mass_match = re.match(r'([0-9]+)(m([0-9]*))?$', mass)
+        if mass_match:
+            massnum = mass_match.group(1)
+            if mass_match.group(2):
+                meta_idx = mass_match.group(3) or '1'
+                sym_name_hdf5 = elem + massnum + '_m' + meta_idx
+            else:
+                sym_name_hdf5 = elem + massnum
+        else:
+            # no mass number (e.g. photo-atomic data)
+            sym_name_hdf5 = elem
+
         # get library abbreviation
         NLIB = meta_data['NLIB']
         if NLIB not in NLIB_DIC:
@@ -109,6 +123,7 @@ def rename_endf_files(filenames,
         new_fname = name_template.replace('[fullsym]', sym_name)
         new_fname = new_fname.replace('[iaeasym]', sym_name_iaea)
         new_fname = new_fname.replace('[iaeasym_nomass]', sym_name_iaea_nomass)
+        new_fname = new_fname.replace('[hdf5sym]', sym_name_hdf5)
         new_fname = new_fname.replace('[elem]', elem)
         new_fname = new_fname.replace('[charge]', charge)
         new_fname = new_fname.replace('[mass]', mass)

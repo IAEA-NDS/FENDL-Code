@@ -62,7 +62,8 @@ sublib_dic = {
             'ace_plot': 'plot/[iaeasym]_ace.pdf',
             'htr_plot': 'plot/[iaeasym]_htr.pdf',
             'njoy_inp': 'njoy/[iaeasym].nji',
-            'njoy_out': 'njoy/[iaeasym].out'
+            'njoy_out': 'njoy/[iaeasym].out',
+            'hdf5': 'hdf5/[hdf5sym].h5'
         }
     },
     'proton': {
@@ -94,7 +95,8 @@ sublib_dic = {
         'html_dir': join(data_dir, 'atom'),
         'template': env.get_template('index_atom.jinja'),
         'derived_files': {
-            'gendf_files': 'group/[iaeasym_nomass]*.gam'
+            'gendf_files': 'group/[iaeasym_nomass]*.gam',
+            'hdf5': 'hdf5/[hdf5sym].h5'
         }
     }
 }

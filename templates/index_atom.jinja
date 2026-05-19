@@ -75,7 +75,7 @@
 <th>Authors</th>
 <th>Source</th>
 <th>Emax (eV)</th>
-<th colspan="11">File</th>
+<th colspan="8">File</th>
 </tr>
 </thead>
 <tbody>
@@ -98,7 +98,11 @@
             {% for gendf_item in item.derived_files.gendf_files %}
             <a href="{{gendf_item.link}}">{{gendf_item.name}}</a>{% if item.derived_files.gendf_files|length > loop.index0+1 %},{% endif %}{% endfor %}]
         </td>
-        <td></td>
+        <td>
+            {% if 'hdf5' in item.derived_files %}
+            [<a href="{{item.derived_files.hdf5}}">hdf5</a>]
+            {% endif %}
+        </td>
         <td></td>
         <td></td>
     </tr>

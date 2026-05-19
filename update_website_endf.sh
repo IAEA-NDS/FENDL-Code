@@ -78,7 +78,8 @@ if [ "$copy_files" -eq "1" ]; then
           neutron/ace \
           neutron/group \
           neutron/njoy \
-          neutron/plot
+          neutron/plot \
+          neutron/hdf5
     mkdir proton
     mkdir proton/endf \
           proton/ace \
@@ -89,7 +90,8 @@ if [ "$copy_files" -eq "1" ]; then
           deuteron/ace
     mkdir atom
     mkdir atom/endf \
-          atom/group
+          atom/group \
+          atom/hdf5
     cd "$curwd"
           
     echo "INFO: Copying files from $FENDL_REPO_DIR to $FENDL_DATA_DIR"
@@ -106,6 +108,7 @@ if [ "$copy_files" -eq "1" ]; then
     rsync -L --dirs --delete "$repo_data_dir/neutron/group/" "$website_data_dir/neutron/group"
     rsync -L --dirs --delete "$repo_data_dir/neutron/njoy/" "$website_data_dir/neutron/njoy"
     rsync -L --dirs --delete "$repo_data_dir/neutron/plot/" "$website_data_dir/neutron/plot"
+    rsync -L --dirs --delete "$repo_data_dir/neutron/hdf5/" "$website_data_dir/neutron/hdf5"
 
     rsync -L --dirs --delete "$repo_data_dir/proton/ace/" "$website_data_dir/proton/ace"
     rsync -L --dirs --delete "$repo_data_dir/proton/njoy/" "$website_data_dir/proton/njoy"
@@ -114,6 +117,10 @@ if [ "$copy_files" -eq "1" ]; then
     rsync -L --dirs --delete "$repo_data_dir/deuteron/ace/" "$website_data_dir/deuteron/ace"
 
     rsync -L --dirs --delete "$repo_data_dir/atom/group/" "$website_data_dir/atom/group"
+    rsync -L --dirs --delete "$repo_data_dir/atom/hdf5/" "$website_data_dir/atom/hdf5"
+
+    # OpenMC cross section index referencing the neutron and atom HDF5 files
+    rsync -L "$repo_data_dir/cross_sections.xml" "$website_data_dir/cross_sections.xml"
 fi
 
 # create zip files of sublibraries
@@ -133,6 +140,10 @@ if [ "$make_zips" -eq "1" ]; then
         zip -r "fendl-$FENDL_VERSION-$sublib-ace.zip" "$sublib/ace" \
             && mv "fendl-$FENDL_VERSION-$sublib-ace.zip" "$sublib"
     done
+
+    # bundle all hdf5 files together with the OpenMC cross_sections.xml
+    # so the archive is directly usable with OpenMC after unzipping
+    zip -r "fendl-$FENDL_VERSION-hdf5.zip" cross_sections.xml neutron/hdf5 atom/hdf5
 
     # assemble neutron gendf files (including photo-atomic gam files)
     # collect .gam files from atom/group and .g files from neutron/group

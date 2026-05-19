@@ -102,6 +102,11 @@
                     [<a href="{{item.derived_files.xsd}}">xsd</a>]</td>
                 {% endif %}
             <td>
+                {% if 'hdf5' in item.derived_files %}
+                    [<a href="{{item.derived_files.hdf5}}">hdf5</a>]
+                {% endif %}
+            </td>
+            <td>
                 {% if 'gendf' in item.derived_files %}
                     [<a href="{{item.derived_files.gendf}}">gendf</a>]
                 {% endif %}
